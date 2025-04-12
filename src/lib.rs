@@ -19,9 +19,9 @@ pub fn main(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let wrapped_main = quote! {
         #(#attrs)*
         #vis fn #sig {
-            let config_str = include_str!("voxels.toml")
+            let config_str = include_str!("voxels.toml");
 
-            let conifg : lib_voxels_application_core::application::Application = toml::from_str(include_str!("voxels.toml")).unwrap();
+            let config : lib_voxels_application_core::application::Application = toml::from_str(include_str!("voxels.toml")).unwrap();
 
             #(#stmts)*
         }
