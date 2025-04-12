@@ -12,8 +12,8 @@ pub fn main(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let vis = &input.vis;
     let attrs = &input.attrs;
     let sig = &input.sig;
+    let block = &input.block;
 
-    let stmts = &input.block.stmts;
 
     let wrapped_main = quote! {
         #(#attrs)*
@@ -22,7 +22,7 @@ pub fn main(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
             let conifg : lib_voxels_application_core::application::Application = toml::from_str(include_str!("voxels.toml")).unwrap();
 
-            #stmts
+            #block
         }
     };
 
