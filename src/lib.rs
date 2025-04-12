@@ -30,7 +30,7 @@ pub fn main(_attr: TokenStream, item: TokenStream) -> TokenStream {
             let config_str = std::fs::read_to_string("voxels.toml")
                 .expect("Could not read voxels.toml");
 
-            let config: crate::lib_voxels_application_proc::lib_voxels_application_core::application::Application
+            let config: crate::lib_voxels_application_proc::lib_voxels_application_core::application::Application = toml::from_str(&config_str)
                 .expect("Failed to parse voxels.toml");
             voxels_application_core::set_config(config);
 
