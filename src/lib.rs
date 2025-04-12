@@ -4,9 +4,8 @@ use proc_macro::TokenStream;
 use syn::{parse_macro_input, ItemFn};
 use quote::quote;
 
-
 #[proc_macro_attribute]
-pub fn vxapp_main(_attr: TokenStream, item: TokenStream) -> TokenStream {
+pub fn main(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let input_fn = parse_macro_input!(item as ItemFn);
     let user_main = &input_fn.block;
     let vis = &input_fn.vis;
@@ -19,7 +18,8 @@ pub fn vxapp_main(_attr: TokenStream, item: TokenStream) -> TokenStream {
         #vis fn main() {
             let config_str = std::fs::read_to_string("voxels.toml")
                 .expect("Failed to read voxels.toml");
-            let config: voxels_application::VoxelsConfig = toml::from_str(&config_str)
+
+            let config: lib_voxels_application_core::application::Application = toml::from_str(&config_str)
                 .expect("Failed to parse voxels.toml");
 
             fn user_main #sig {

@@ -9,7 +9,9 @@ edition = "2024"
 proc-macro = true
 
 [dependencies]
+lib-voxels-application-core={git = "https://github.com/Oxyn4/lib-voxels-application-core"}
 quote = "1"
 proc-macro2 = "1.0"
 syn = { version = "1.0", features = ["full"] }
+toml = "0.8.20"
 
