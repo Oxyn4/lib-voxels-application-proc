@@ -32,7 +32,7 @@ pub fn main(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
             let config: crate::lib_voxels_application_proc::lib_voxels_application_core::application::Application = toml::from_str(&config_str)
                 .expect("Failed to parse voxels.toml");
-            voxels_application_core::set_config(config);
+
 
             __voxels_wrapped_main();
         }
