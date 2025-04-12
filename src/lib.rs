@@ -12,34 +12,19 @@ pub fn main(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let vis = &input.vis;
     let attrs = &input.attrs;
     let sig = &input.sig;
-    let block = &input.block;
 
-    let mut new_sig = sig.clone();
+    let stmts = &input.block.stmts;
 
-    new_sig.ident = Ident::new("__voxels_wrapped_main", Span::call_site());
-
-    let user_main_fn = quote! {
+    let wrapped_main = quote! {
         #(#attrs)*
-        #vis fn #new_sig
-            #block
-    };
+        #vis fn #sig {
+            let config_str = include_str!("voxels.toml")
 
-    // Rewrite the function: we generate a real main that loads config and passes it to the user's main
-    let wrapper_main = quote! {
-        fn main() {
-            let config_str = include_str!("voxels.toml");
+            let conifg : lib_voxels_application_core::application::Application = toml::from_str(include_str!("voxels.toml")).unwrap();
 
-            let config: crate::lib_voxels_application_proc::lib_voxels_application_core::application::Application = toml::from_str(&config_str)
-                .expect("Failed to parse voxels.toml");
-
-            __voxels_wrapped_main();
+            #stmts
         }
     };
 
-    let output = quote! {
-        #user_main_fn
-        #wrapper_main
-    };
-
-    output.into()
+    wrapped_main.into()
 }
