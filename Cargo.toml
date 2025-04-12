@@ -1,0 +1,15 @@
+[package]
+name = "lib_voxels_application_proc"
+version = "0.0.0"
+authors = ["jacob evans"]
+description = "Procedual macros for lib-voxels-application"
+edition = "2024"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "1"
+proc-macro2 = "1.0"
+syn = { version = "1.0", features = ["full"] }
+
