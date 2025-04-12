@@ -20,9 +20,8 @@ pub fn main(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
     let user_main_fn = quote! {
         #(#attrs)*
-        #vis fn #new_sig {
+        #vis fn #new_sig
             #block
-        }
     };
 
     // Rewrite the function: we generate a real main that loads config and passes it to the user's main
