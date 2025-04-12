@@ -27,12 +27,10 @@ pub fn main(_attr: TokenStream, item: TokenStream) -> TokenStream {
     // Rewrite the function: we generate a real main that loads config and passes it to the user's main
     let wrapper_main = quote! {
         fn main() {
-            let config_str = std::fs::read_to_string("voxels.toml")
-                .expect("Could not read voxels.toml");
+            let config_str = include_str!("voxels.toml");
 
             let config: crate::lib_voxels_application_proc::lib_voxels_application_core::application::Application = toml::from_str(&config_str)
                 .expect("Failed to parse voxels.toml");
-
 
             __voxels_wrapped_main();
         }
