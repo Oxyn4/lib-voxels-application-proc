@@ -21,7 +21,7 @@ pub fn main(_attr: TokenStream, item: TokenStream) -> TokenStream {
         #vis #sig {
             let config_str = include_str!("../voxels.toml");
 
-            let config : crate::lib_voxels_application_core::application::Application = toml::from_str(config_str).unwrap();
+            let config : crate::lib_voxels_application::core::application::Application = toml::from_str(config_str).unwrap();
 
             #(#stmts)*
         }
